@@ -1,0 +1,3 @@
+version: 2.1
+
+description: "A set of tools convenient for running Windows jobs on CircleCI."

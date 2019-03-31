@@ -22,7 +22,7 @@ workflows:
       # store CIRCLE_TOKEN as a project env var or Contexts resource
       # if using Contexts, add your context below
       - orb-tools/publish-dev:
-          orb-name: # namespace/orb-name, e.g., circleci/orb-starter-kit
+          orb-name: sandbox/windows-tools
           requires:
             - orb-tools/pack
 

@@ -4,25 +4,17 @@ orbs:
   orb-tools: circleci/orb-tools@8.5.0
 
 workflows:
-  # this `lint-pack_validate_publish-dev` workflow will run on any commit
   lint-pack_validate_publish-dev:
     jobs:
-      # lint your destructured orb YAML files
+      # lint the destructured orb YAML files
       - orb-tools/lint
 
-      # pack your orb YAML files to a single orb.yml
-      # validate the orb.yml file to ensure it is well-formed
       - orb-tools/pack:
           requires:
             - orb-tools/lint
 
-      # release dev version of orb, for testing & possible publishing
-      # requires a CircleCI API token to be stored as CIRCLE_TOKEN (default)
-      # https://circleci.com/docs/2.0/managing-api-tokens
-      # store CIRCLE_TOKEN as a project env var or Contexts resource
-      # if using Contexts, add your context below
       - orb-tools/publish-dev:
+          context:  orb-publishing
           orb-name: sandbox/windows-tools
           requires:
             - orb-tools/pack
-

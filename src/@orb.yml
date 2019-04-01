@@ -9,4 +9,4 @@ executors:
       This syntax is subject to change before general release of Windows.
     machine:
       image: windows-server-2019
-      resource_class: windows.medium
+#      resource_class: windows.medium

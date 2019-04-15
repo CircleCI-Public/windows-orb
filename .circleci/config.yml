@@ -14,7 +14,8 @@ workflows:
             - orb-tools/lint
 
       - orb-tools/publish-dev:
-          context:  orb-publishing
+          context: orb-publishing
           orb-name: sandbox/windows-tools
+          alpha-version-ref: dev:preview
           requires:
             - orb-tools/pack

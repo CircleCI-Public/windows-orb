@@ -1,3 +1,26 @@
 version: 2.1
 
 description: "A set of tools convenient for running Windows jobs on CircleCI."
+
+executors:
+  preview-default:
+    description: >
+      An executor for the pre-release preview period.
+      This syntax is subject to change before general release of Windows.
+    parameters:
+      image:
+        type: enum
+        description: The image to use when executing. Defaults to "windows-server-2019"
+        enum: ["windows-server-2019"]
+        default: "windows-server-2019"
+      # TODO: this should maybe get sugared?
+      shell:
+        type: string
+        description: >
+          The shell to use.
+          Defaults to `powershell.exe -NoProfile -ExecutionPolicy Bypass`
+        default: powershell.exe -NoProfile -ExecutionPolicy Bypass
+    machine:
+      image: windows-server-2019
+      resource_class: windows.medium
+      shell: << parameters.shell >>

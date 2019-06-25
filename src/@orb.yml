@@ -24,3 +24,30 @@ executors:
       image: windows-server-2019
       resource_class: windows.medium
       shell: << parameters.shell >>
+
+commands:
+  enable-windows-defender:
+    description: >
+      Turns window defender on at the cost of IO performance.
+    parameters:
+      paths:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Enable Windows Defender
+          command: |
+            Set-MpPreference -DisableRealtimeMonitoring $false
+
+  disable-windows-defender:
+    description: >
+      Turns window defender off for improved IO performance.
+    parameters:
+      paths:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Disable Windows Defender
+          command: |
+            Set-MpPreference -DisableRealtimeMonitoring $true

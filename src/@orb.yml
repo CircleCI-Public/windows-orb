@@ -66,13 +66,13 @@ commands:
         default: ""
     steps:
       - run:
-          name: Enable Windows Defender
+          name: Add Windows Defender Exclusions
           command: |
 
             if ("<< parameters.exclusion-processes >>") {
               Write-Host "Adding process exclusions: << parameters.exclusion-processes >>"
               Set-MpPreference `
-                -ExclusionName "<< parameters.exclusion-processes >>".Split(",")
+                -ExclusionProcess "<< parameters.exclusion-processes >>".Split(",")
             }
 
             if ("<< parameters.exclusion-paths >>") {
@@ -108,12 +108,12 @@ commands:
         default: ""
     steps:
       - run:
-          name: Enable Windows Defender
+          name: Remove Windows Defender Exclusions
           command: |
             if ("<< parameters.exclusion-processes >>") {
               Write-Host "Removing process exclusions: << parameters.exclusion-processes >>"
               Remove-MpPreference `
-                -ExclusionName "<< parameters.exclusion-processes >>".Split(",")
+                -ExclusionProcess "<< parameters.exclusion-processes >>".Split(",")
             }
 
             if ("<< parameters.exclusion-paths >>") {

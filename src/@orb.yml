@@ -26,13 +26,111 @@ executors:
       shell: << parameters.shell >>
 
 commands:
-  enable-windows-defender:
+  windows-defender-status:
     description: >
-      Turns window defender on at the cost of IO performance.
+      Prints out the current status of windows defender including any
+      excluded paths, extensions, and processes.
+    steps:
+      - run:
+          name: Windows Defender Status
+          command: |
+            Get-MpPreference | `
+            Select DisableRealtimeMonitoring, ExclusionExtension, ExclusionProcess, ExclusionPath | `
+            Format-List
+
+  add-windows-defender-exclusions:
+    description: >
+      Adds any process, path, or extension based exclusions to the exclusion lists.
     parameters:
-      paths:
+      exclusion-processes:
+        description: >
+          A comma separated list of processes, as paths to process images. This
+          excludes any files opened by the processes that you specify from
+          scheduled and real-time scanning. Specifying this excludes files opened by
+          executable programs only. The does not exclude the processes themselves. To
+          exclude a process, specify it by using the exclusion-paths parameter.
         type: string
         default: ""
+      exclusion-paths:
+        description: >
+          A comma separated list of file paths to exclude from scheduled and real-time
+          scanning. You can specify a folder to exclude all the files under the folder.
+        type: string
+        default: ""
+      exclusion-extensions:
+        description: >
+          A comma separated list of file name extensions without the leading
+          ".", such as obj or lib, to exclude from scheduled, custom, and real-time
+          scanning.
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Enable Windows Defender
+          command: |
+
+            if (<< parameters.exclusion-processes >>) {
+              Write-Host "Adding process exclusions: << parameters.exclusion-processes >>"
+              Set-MpPreference `
+                -ExclusionName << parameters.exclusion-processes >>.Split(",")
+            }
+
+            if (<< parameters.exclusion-paths >>) {
+              Write-Host "Adding path exclusions: << parameters.exclusion-paths >>"
+              Set-MpPreference `
+                -ExclusionPath << parameters.exclusion-paths >>.Split(",")
+            }
+
+            if (<< parameters.exclusion-extensions >>) {
+              Write-Host "Adding extension exclusions: << parameters.exclusion-extensions >>"
+              Set-MpPreference `
+                -ExclusionExtension << parameters.exclusion-extensions >>.Split(",")
+            }
+
+  remove-windows-defender-exclusions:
+    description: >
+      Removes any process, path, or extension based exclusions from the exclusion lists.
+    parameters:
+      exclusion-processes:
+        description: >
+          A comma separated list of processes to remove from the exclusion list.
+        type: string
+        default: ""
+      exclusion-paths:
+        description: >
+          A comma separated list of paths to remove from the exclusion list.
+        type: string
+        default: ""
+      exclusion-extensions:
+        description: >
+          A comma separated list of extensions to remove from the exclusion list.
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Enable Windows Defender
+          command: |
+            if (<< parameters.exclusion-processes >>) {
+              Write-Host "Removing process exclusions: << parameters.exclusion-processes >>"
+              Remove-MpPreference `
+                -ExclusionName << parameters.exclusion-processes >>.Split(",")
+            }
+
+            if (<< parameters.exclusion-paths >>) {
+              Write-Host "Removing path exclusions: << parameters.exclusion-paths >>"
+              Remove-MpPreference `
+                -ExclusionPath << parameters.exclusion-paths >>.Split(",")
+            }
+
+            if (<< parameters.exclusion-extensions >>) {
+              Write-Host "Removing extension exclusions: << parameters.exclusion-extensions >>"
+              Remove-MpPreference `
+                -ExclusionExtension << parameters.exclusion-extensions >>.Split(",")
+            }
+
+  enable-windows-defender:
+    description: |
+      Turns window defender on at the cost of IO performance.
     steps:
       - run:
           name: Enable Windows Defender
@@ -40,12 +138,8 @@ commands:
             Set-MpPreference -DisableRealtimeMonitoring $false
 
   disable-windows-defender:
-    description: >
+    description: |
       Turns window defender off for improved IO performance.
-    parameters:
-      paths:
-        type: string
-        default: ""
     steps:
       - run:
           name: Disable Windows Defender

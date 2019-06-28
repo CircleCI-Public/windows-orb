@@ -69,22 +69,22 @@ commands:
           name: Enable Windows Defender
           command: |
 
-            if (<< parameters.exclusion-processes >>) {
+            if ("<< parameters.exclusion-processes >>") {
               Write-Host "Adding process exclusions: << parameters.exclusion-processes >>"
               Set-MpPreference `
-                -ExclusionName << parameters.exclusion-processes >>.Split(",")
+                -ExclusionName "<< parameters.exclusion-processes >>".Split(",")
             }
 
-            if (<< parameters.exclusion-paths >>) {
+            if ("<< parameters.exclusion-paths >>") {
               Write-Host "Adding path exclusions: << parameters.exclusion-paths >>"
               Set-MpPreference `
-                -ExclusionPath << parameters.exclusion-paths >>.Split(",")
+                -ExclusionPath "<< parameters.exclusion-paths >>".Split(",")
             }
 
-            if (<< parameters.exclusion-extensions >>) {
+            if ("<< parameters.exclusion-extensions >>") {
               Write-Host "Adding extension exclusions: << parameters.exclusion-extensions >>"
               Set-MpPreference `
-                -ExclusionExtension << parameters.exclusion-extensions >>.Split(",")
+                -ExclusionExtension "<< parameters.exclusion-extensions >>".Split(",")
             }
 
   remove-windows-defender-exclusions:
@@ -110,22 +110,22 @@ commands:
       - run:
           name: Enable Windows Defender
           command: |
-            if (<< parameters.exclusion-processes >>) {
+            if ("<< parameters.exclusion-processes >>") {
               Write-Host "Removing process exclusions: << parameters.exclusion-processes >>"
               Remove-MpPreference `
-                -ExclusionName << parameters.exclusion-processes >>.Split(",")
+                -ExclusionName "<< parameters.exclusion-processes >>".Split(",")
             }
 
-            if (<< parameters.exclusion-paths >>) {
+            if ("<< parameters.exclusion-paths >>") {
               Write-Host "Removing path exclusions: << parameters.exclusion-paths >>"
               Remove-MpPreference `
-                -ExclusionPath << parameters.exclusion-paths >>.Split(",")
+                -ExclusionPath "<< parameters.exclusion-paths >>".Split(",")
             }
 
-            if (<< parameters.exclusion-extensions >>) {
+            if ("<< parameters.exclusion-extensions >>") {
               Write-Host "Removing extension exclusions: << parameters.exclusion-extensions >>"
               Remove-MpPreference `
-                -ExclusionExtension << parameters.exclusion-extensions >>.Split(",")
+                -ExclusionExtension "<< parameters.exclusion-extensions >>".Split(",")
             }
 
   enable-windows-defender:

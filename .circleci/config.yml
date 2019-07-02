@@ -15,7 +15,7 @@ workflows:
 
       - orb-tools/publish-dev:
           context: orb-publishing
-          orb-name: sandbox/windows-tools
-          alpha-version-ref: dev:preview
+          orb-name: circleci/windows-tools
+          alpha-version-ref: dev:ci-${CIRCLE_SHA1:0:7}
           requires:
             - orb-tools/pack

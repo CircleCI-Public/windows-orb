@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  orb-tools: circleci/orb-tools@8.5.0
+  orb-tools: circleci/orb-tools@8.27.2
 
 workflows:
   lint-pack_validate_publish-dev:
@@ -16,6 +16,5 @@ workflows:
       - orb-tools/publish-dev:
           context: orb-publishing
           orb-name: circleci/windows-tools
-          alpha-version-ref: dev:ci-${CIRCLE_SHA1:0:7}
           requires:
             - orb-tools/pack

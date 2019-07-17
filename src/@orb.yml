@@ -1,7 +1,5 @@
 version: 2.1
-
 description: "A set of tools convenient for running Windows jobs on CircleCI."
-
 executors:
   preview-default:
     description: >
@@ -18,8 +16,8 @@ executors:
         type: string
         description: >
           The shell to use.
-          Defaults to `powershell.exe -NoProfile -ExecutionPolicy Bypass`
-        default: powershell.exe -NoProfile -ExecutionPolicy Bypass
+          Defaults to `powershell.exe -ExecutionPolicy Bypass`
+        default: powershell.exe -ExecutionPolicy Bypass
     machine:
       image: windows-server-2019
       resource_class: windows.medium

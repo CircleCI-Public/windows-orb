@@ -7,9 +7,8 @@ executors:
       This syntax is subject to change before general release of Windows.
     parameters:
       image:
-        type: enum
+        type: string
         description: The image to use when executing. Defaults to "windows-server-2019"
-        enum: ["windows-server-2019"]
         default: "windows-server-2019"
       # TODO: this should maybe get sugared?
       shell:
@@ -19,6 +18,6 @@ executors:
           Defaults to `powershell.exe -ExecutionPolicy Bypass`
         default: powershell.exe -ExecutionPolicy Bypass
     machine:
-      image: windows-server-2019
+      image: << parameters.image >>
       resource_class: windows.medium
       shell: << parameters.shell >>

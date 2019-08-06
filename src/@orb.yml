@@ -1,7 +1,7 @@
 version: 2.1
 description: "A set of tools convenient for running Windows jobs on CircleCI."
 executors:
-  base:
+  default:
     description: >
       A bare bones windows executor.
     parameters:

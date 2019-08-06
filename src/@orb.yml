@@ -1,16 +1,14 @@
 version: 2.1
 description: "A set of tools convenient for running Windows jobs on CircleCI."
 executors:
-  preview-default:
+  default:
     description: >
-      An executor for the pre-release preview period.
-      This syntax is subject to change before general release of Windows.
+      A bare bones windows executor.
     parameters:
-      image:
+      version:
         type: string
-        description: The image to use when executing. Defaults to "windows-server-2019"
-        default: "windows-server-2019"
-      # TODO: this should maybe get sugared?
+        description: The image to use when executing. Defaults to "201908-06"
+        default: "201908-06"
       shell:
         type: string
         description: >
@@ -18,6 +16,25 @@ executors:
           Defaults to `powershell.exe -ExecutionPolicy Bypass`
         default: powershell.exe -ExecutionPolicy Bypass
     machine:
-      image: << parameters.image >>
+      image: "windows-server-2019:<< parameters.version >>"
+      resource_class: windows.medium
+      shell: << parameters.shell >>
+  vs2019:
+    description: >
+      An executor preloaded with visual studios 2019 plus a number of other
+      development tools.
+    parameters:
+      version:
+        type: string
+        description: The image version to use when executing. Defaults to "201908-06"
+        default: "201908-06"
+      shell:
+        type: string
+        description: >
+          The shell to use.
+          Defaults to `powershell.exe -ExecutionPolicy Bypass`
+        default: powershell.exe -ExecutionPolicy Bypass
+    machine:
+      image: "windows-server-2019-vs2019:<< parameters.version >>"
       resource_class: windows.medium
       shell: << parameters.shell >>

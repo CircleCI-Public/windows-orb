@@ -7,8 +7,8 @@ executors:
     parameters:
       version:
         type: string
-        description: The image to use when executing. Defaults to "201908-06"
-        default: "201908-06"
+        description: The image to use when executing. Defaults to "201908-08"
+        default: "201908-08"
       shell:
         type: string
         description: >

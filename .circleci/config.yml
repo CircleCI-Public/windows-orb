@@ -15,7 +15,7 @@ workflows:
 
       - orb-tools/publish-dev:
           context: orb-publishing
-          orb-name: circleci/windows-tools
+          orb-name: circleci/windows
           publish-alpha-version: false
           requires:
             - orb-tools/pack

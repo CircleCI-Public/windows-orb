@@ -20,21 +20,3 @@ executors:
       image: "windows-server-2019-vs2019:<< parameters.version >>"
       resource_class: windows.medium
       shell: << parameters.shell >>
-  base:
-    description: >
-      A bare bones windows executor.
-    parameters:
-      version:
-        type: string
-        description: The image version to use when executing. Defaults to "201908-08"
-        default: "201908-08"
-      shell:
-        type: string
-        description: >
-          The shell to use.
-          Defaults to `powershell.exe -ExecutionPolicy Bypass`
-        default: powershell.exe -ExecutionPolicy Bypass
-    machine:
-      image: "windows-server-2019:<< parameters.version >>"
-      resource_class: windows.medium
-      shell: << parameters.shell >>

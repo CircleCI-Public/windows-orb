@@ -3,25 +3,7 @@ description: "A set of tools convenient for running Windows jobs on CircleCI."
 executors:
   default:
     description: >
-      A bare bones windows executor.
-    parameters:
-      version:
-        type: string
-        description: The image to use when executing. Defaults to "201908-08"
-        default: "201908-08"
-      shell:
-        type: string
-        description: >
-          The shell to use.
-          Defaults to `powershell.exe -ExecutionPolicy Bypass`
-        default: powershell.exe -ExecutionPolicy Bypass
-    machine:
-      image: "windows-server-2019:<< parameters.version >>"
-      resource_class: windows.medium
-      shell: << parameters.shell >>
-  vs2019:
-    description: >
-      An executor preloaded with visual studios 2019 plus a number of other
+      An executor preloaded with Visual Studio 2019 plus a number of other
       development tools.
     parameters:
       version:

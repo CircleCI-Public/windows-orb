@@ -9,7 +9,7 @@ executors:
       version:
         type: string
         description: The image version to use when executing. Defaults to "201908-06"
-        default: "201908-06"
+        default: "201909-25"
       shell:
         type: string
         description: >

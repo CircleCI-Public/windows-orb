@@ -16,7 +16,13 @@ executors:
           The shell to use.
           Defaults to `powershell.exe -ExecutionPolicy Bypass`
         default: powershell.exe -ExecutionPolicy Bypass
+      resource_class:
+        type: string
+        description: >
+          The resource_class to use.
+          Defaults to `windows.medium`
+        default: windows.medium
     machine:
       image: "windows-server-2019-vs2019:<< parameters.version >>"
-      resource_class: windows.medium
+      resource_class: << parameters.resource_class >>
       shell: << parameters.shell >>

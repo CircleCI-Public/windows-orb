@@ -16,14 +16,14 @@ executors:
           The shell to use.
           Defaults to `powershell.exe -ExecutionPolicy Bypass`
         default: powershell.exe -ExecutionPolicy Bypass
-      resource_class:
+      size:
         type: enum
         description: >
-          The resource_class to use.
+          The size of Windows resource to use.
           Defaults to medium.
         default: "medium"
         enum: ["medium", "large", "xlarge"]
     machine:
       image: "windows-server-2019-vs2019:<< parameters.version >>"
-      resource_class: "windows.<< parameters.resource_class >>"
+      resource_class: "windows.<< parameters.size >>"
       shell: << parameters.shell >>

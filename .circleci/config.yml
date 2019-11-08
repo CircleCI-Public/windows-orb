@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  orb-tools: circleci/orb-tools@8.27.2
+  orb-tools: circleci/orb-tools@8.27.4
 
 workflows:
   lint-pack_validate_publish-dev:

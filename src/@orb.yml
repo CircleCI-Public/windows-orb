@@ -1,5 +1,6 @@
 version: 2.1
 description: "A set of tools convenient for running Windows jobs on CircleCI."
+
 executors:
   default:
     description: >
@@ -26,4 +27,30 @@ executors:
     machine:
       image: "windows-server-2019-vs2019:<< parameters.version >>"
       resource_class: "windows.<< parameters.size >>"
+      shell: << parameters.shell >>
+
+  ec2:
+    description: >
+      An executor preloaded with defaults for prototype AMI.
+    parameters:
+      version:
+        type: string
+        description: The image to use when executing. Defaults to "ec2-prototype"
+        default: "ec2-prototype"
+      shell:
+        type: string
+        description: >
+          The shell to use.
+          Defaults to `powershell.exe -ExecutionPolicy Bypass`
+        default: powershell.exe -ExecutionPolicy Bypass
+      size:
+        type: enum
+        description: >
+          The size of Windows resource to use.
+          Defaults to medium.
+        default: "medium"
+        enum: ["medium", "large", "xlarge"]
+    machine:
+      image: "windows/<< parameters.version >>"
+      resource_class: "windows.<< parameters.size >>.ec2.prototype"
       shell: << parameters.shell >>

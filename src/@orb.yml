@@ -1,21 +1,44 @@
 version: 2.1
 description: "A set of tools convenient for running Windows jobs on CircleCI."
+
+orbs:
+  base:
+    executors:
+      win:
+        description: >
+          Do not use
+        parameters:
+          version:
+            type: string
+            description: The image version to use when executing. Defaults to "stable".
+            default: "stable"
+          shell:
+            type: string
+            description: >
+              The shell to use.
+              Defaults to `powershell.exe -ExecutionPolicy Bypass`
+            default: powershell.exe -ExecutionPolicy Bypass
+          resource-class:
+            type: string
+            description: The resource class
+          resource-image:
+            type: string
+            description: The image prefix for the given resource type
+          size:
+            type: string
+            description: The size
+        machine:
+          image: "<< parameters.resource-image >>:<< parameters.version >>"
+          resource_class: "<< parameters.resource-class >>.<< parameters.size >>"
+          shell: << parameters.shell >>
+
 executors:
   default:
+    name: base/win
     description: >
       An executor preloaded with Visual Studio 2019 plus a number of other
       development tools.
     parameters:
-      version:
-        type: string
-        description: The image version to use when executing. Defaults to "stable".
-        default: "stable"
-      shell:
-        type: string
-        description: >
-          The shell to use.
-          Defaults to `powershell.exe -ExecutionPolicy Bypass`
-        default: powershell.exe -ExecutionPolicy Bypass
       size:
         type: enum
         description: >
@@ -23,10 +46,15 @@ executors:
           Defaults to medium.
         default: "medium"
         enum: ["medium", "large", "xlarge"]
-    machine:
-      image: "windows-server-2019-vs2019:<< parameters.version >>"
-      resource_class: "windows.<< parameters.size >>"
-      shell: << parameters.shell >>
+      shell:
+        type: string
+      version:
+        type: string
+    resource-image: "windows-server-2019-vs2019"
+    resource-class: "windows"
+    size: << parameters.size >>
+    shell: << parameters.shell >>
+    version: << parameters.version >>
 
   gpu-nvidia:
     description: >
@@ -47,8 +75,7 @@ executors:
         type: enum
         description: >
           The size of Windows GPU resource to use.
-          Defaults to medium, which resolves to the full name
-          windows.gpu.nvidia.medium.
+          Defaults to medium.
         default: "medium"
         enum: ["medium"]
     machine:

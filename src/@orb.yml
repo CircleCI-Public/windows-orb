@@ -29,7 +29,7 @@ executors:
           The size of Windows resource to use.
           Defaults to medium.
         default: "medium"
-        enum: ["medium", "large", "xlarge"]
+        enum: ["medium", "large", "xlarge", "2xlarge"]
     machine:
       image: "windows-server-2019-vs2019:<< parameters.version >>"
       resource_class: "windows.<< parameters.size >>"

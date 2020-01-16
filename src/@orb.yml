@@ -48,7 +48,7 @@ executors:
           The size of Windows GPU resource to use.
           Defaults to medium.
         default: "medium"
-        enum: ["medium"]
+        enum: ["small", "medium", "large"]
     machine:
       image: "windows-server-2019-nvidia:<< parameters.version >>"
       resource_class: "windows.gpu.nvidia.<< parameters.size >>"

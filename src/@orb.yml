@@ -1,55 +1,12 @@
-version: 2.1
-description: "A set of tools convenient for running Windows jobs on CircleCI."
-
-## Anchors (used to DRY the executors in this orb)
-base-shell: &base-shell
-  type: string
-  description: >
-    The shell to use.
-    Defaults to `powershell.exe -ExecutionPolicy Bypass`
+base-shell:
   default: powershell.exe -ExecutionPolicy Bypass
+  description: 'The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
 
-base-version: &base-version
+    '
   type: string
+base-version:
+  default: stable
   description: The image version to use when executing. Defaults to "stable".
-  default: "stable"
-
-## Executors (for use in config)
-executors:
-  default:
-    description: >
-      An executor preloaded with Visual Studio 2019 plus a number of other
-      development tools.
-    parameters:
-      version: *base-version
-      shell: *base-shell
-      size:
-        type: enum
-        description: >
-          The size of Windows resource to use.
-          Defaults to medium.
-        default: "medium"
-        enum: ["medium", "large", "xlarge", "2xlarge"]
-    machine:
-      image: "windows-server-2019-vs2019:<< parameters.version >>"
-      resource_class: "windows.<< parameters.size >>"
-      shell: << parameters.shell >>
-
-  gpu-nvidia:
-    description: >
-      An executor with an Nvidia GPU which includes a pre-installed CUDA
-      runtime and the cuDNN library.
-    parameters:
-      version: *base-version
-      shell: *base-shell
-      size:
-        type: enum
-        description: >
-          The size of Windows GPU resource to use.
-          Defaults to medium.
-        default: "medium"
-        enum: ["small", "medium", "large"]
-    machine:
-      image: "windows-server-2019-nvidia:<< parameters.version >>"
-      resource_class: "windows.gpu.nvidia.<< parameters.size >>"
-      shell: << parameters.shell >>
+  type: string
+description: A set of tools convenient for running Windows jobs on CircleCI.
+version: 2.1

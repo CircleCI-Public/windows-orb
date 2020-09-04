@@ -1,21 +1,48 @@
 version: 2.1
 
 orbs:
-  orb-tools: circleci/orb-tools@8.27.4
+  orb-tools: circleci/orb-tools@10
+  windows: circleci/windows@<<parameters.dev-orb-version>>
+
+parameters:
+  run-integration-tests:
+    type: boolean
+    default: false
+  dev-orb-version:
+    type: string
+    default: "dev:alpha"
 
 workflows:
-  lint-pack_validate_publish-dev:
+  test-pack:
+    unless: << pipeline.parameters.run-integration-tests >>
     jobs:
       # lint the destructured orb YAML files
       - orb-tools/lint
-
-      - orb-tools/pack:
-          requires:
-            - orb-tools/lint
-
+      - orb-tools/pack
       - orb-tools/publish-dev:
           context: orb-publishing
           orb-name: circleci/windows
-          publish-alpha-version: false
           requires:
+            - orb-tools/lint
             - orb-tools/pack
+      - orb-tools/trigger-integration-tests-workflow:
+          name: trigger-integration
+          context: orb-publishing
+          requires: [orb-tools/publish-dev]
+  deploy:
+    when: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      # Actually publish the orb
+      - orb-tools/dev-promote-prod-from-commit-subject:
+          name: dev-promote-semver
+          add-pr-comment: true
+          fail-if-semver-not-indicated: true
+          bot-user: cpe-bot
+          bot-token-variable: GHI_TOKEN
+          context: orb-publishing
+          orb-name: circleci/windows
+          publish-version-tag: true
+          ssh-fingerprints: # TODO
+          filters:
+            branches:
+              only: master

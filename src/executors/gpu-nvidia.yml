@@ -1,23 +1,15 @@
-description: 'An executor with an Nvidia GPU which includes a pre-installed CUDA runtime
+description: >
+  An executor with an Nvidia GPU which includes a pre-installed CUDA runtime
   and the cuDNN library.
 
-  '
-machine:
-  image: windows-server-2019-nvidia:<< parameters.version >>
-  resource_class: windows.gpu.nvidia.<< parameters.size >>
-  shell: << parameters.shell >>
 parameters:
   shell:
     default: powershell.exe -ExecutionPolicy Bypass
-    description: 'The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
-
-      '
+    description: 'The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`'
     type: string
   size:
     default: medium
-    description: 'The size of Windows GPU resource to use. Defaults to medium.
-
-      '
+    description: 'The size of Windows GPU resource to use. Defaults to medium.'
     enum:
     - small
     - medium
@@ -27,3 +19,8 @@ parameters:
     default: stable
     description: The image version to use when executing. Defaults to "stable".
     type: string
+
+machine:
+  image: windows-server-2019-nvidia:<< parameters.version >>
+  resource_class: windows.gpu.nvidia.<< parameters.size >>
+  shell: << parameters.shell >>

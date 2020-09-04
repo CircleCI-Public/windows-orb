@@ -1,12 +1,2 @@
-base-shell:
-  default: powershell.exe -ExecutionPolicy Bypass
-  description: 'The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
-
-    '
-  type: string
-base-version:
-  default: stable
-  description: The image version to use when executing. Defaults to "stable".
-  type: string
-description: A set of tools convenient for running Windows jobs on CircleCI.
 version: 2.1
+description: A set of tools convenient for running Windows jobs on CircleCI.

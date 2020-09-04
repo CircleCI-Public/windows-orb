@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   orb-tools: circleci/orb-tools@10
-  windows: circleci/windows@<<parameters.dev-orb-version>>
+  windows: circleci/windows@<<pipeline.parameters.dev-orb-version>>
 
 parameters:
   run-integration-tests:

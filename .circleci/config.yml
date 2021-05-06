@@ -37,12 +37,12 @@ workflows:
           name: dev-promote-semver
           add-pr-comment: true
           fail-if-semver-not-indicated: true
-          bot-user: cpe-bot
+          bot-user: orb-publisher
           bot-token-variable: GHI_TOKEN
-          context: orb-publishing
+          context: orb-publisher
           orb-name: circleci/windows
           publish-version-tag: true
-          ssh-fingerprints: # TODO
+          ssh-fingerprints: 34:29:ab:b0:92:8b:b7:cd:c8:33:07:12:7b:d1:4e:4b
           filters:
             branches:
               only: master

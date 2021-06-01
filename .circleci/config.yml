@@ -20,14 +20,14 @@ workflows:
       - orb-tools/lint
       - orb-tools/pack
       - orb-tools/publish-dev:
-          context: orb-publishing
+          context: orb-publisher
           orb-name: circleci/windows
           requires:
             - orb-tools/lint
             - orb-tools/pack
       - orb-tools/trigger-integration-tests-workflow:
           name: trigger-integration
-          context: orb-publishing
+          context: orb-publisher
           requires: [orb-tools/publish-dev]
   deploy:
     when: << pipeline.parameters.run-integration-tests >>

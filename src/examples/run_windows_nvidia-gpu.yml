@@ -2,18 +2,16 @@ description: |
   This is an example of running a simple job on the Nvidia GPU executor
 usage:
   version: 2.1 # Use version 2.1 to enable orb usage.
-
   orbs:
     win: circleci/windows@2.4
-
   jobs:
     build: # Name of your job
-      executor:
-        name: win/gpu-nvidia
-        size: "medium"
+      machine:
+        resource_class: gpu.nvidia.small
+        image: ubuntu-1604-cuda-10.1:201909-23
       steps:
-        - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
-    workflows:
-      my-workflow:
-        jobs:
-          - build
+        - run: nvidia-smi
+  workflows:
+    my-workflow:
+      jobs:
+        - build

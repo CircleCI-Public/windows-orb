@@ -14,4 +14,7 @@ usage:
       steps:
         - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
     workflows:
-        - build
+      my-workflow:
+        - jobs:
+          - build
+

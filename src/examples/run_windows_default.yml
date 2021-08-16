@@ -17,7 +17,5 @@ usage:
         - checkout
         - run: Write-Host 'Hello, Windows'
     workflows:
-      my-workflow:
-        - jobs:
-          - build
+        - build
 

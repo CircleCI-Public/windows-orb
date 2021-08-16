@@ -11,9 +11,7 @@ usage:
       executor:
         name: win/gpu-nvidia
         size: "medium" #size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
-
       steps:
         - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
     workflows:
-      jobs:
         - build

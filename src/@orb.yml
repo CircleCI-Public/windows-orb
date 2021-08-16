@@ -1,5 +1,5 @@
 version: 2.1
-description: A set of tools convenient for running Windows jobs on CircleCI.
+description: Execute your CI pipelines on Windows in the cloud with Nvidia GPU support.
 display:
   source_url: https://github.com/CircleCI-Public/windows-orb
   home_url: https://circleci.com/build-environments/windows

@@ -1,13 +1,17 @@
-version: 2.1 # Use version 2.1 to enable orb usage.
+description: 
+usage:
+  version: 2.1 # Use version 2.1 to enable orb usage.
 
-orbs:
-  win: circleci/windows@2.4
+  orbs:
+    win: circleci/windows@2.4
 
-jobs:
-  build: # Name of your job
-    executor: 
-      name: win/gpu-nvidia
-      size: "medium" #size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
+  jobs:
+    build: # Name of your job
+      executor:
+        name: win/gpu-nvidia
+        size: "medium" #size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
 
-    steps:
-      - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
+      steps:
+        - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
+    workflows:
+      - build

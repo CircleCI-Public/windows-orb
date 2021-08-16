@@ -1,4 +1,5 @@
-description: 
+description: |
+  This is an example of running a simple job on the Nvidia GPU executor
 usage:
   version: 2.1 # Use version 2.1 to enable orb usage.
 
@@ -14,4 +15,5 @@ usage:
       steps:
         - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
     workflows:
-      - build
+      jobs:
+        - build

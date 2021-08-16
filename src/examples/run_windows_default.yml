@@ -1,4 +1,5 @@
-description:
+description: |
+  This is an example of running a simple job on the default Windows executor
 usage:  
   version: 2.1 # Use version 2.1 to enable orb usage.
 
@@ -16,4 +17,5 @@ usage:
         - checkout
         - run: Write-Host 'Hello, Windows'
     workflows:
-      - build
+      jobs:
+        - build

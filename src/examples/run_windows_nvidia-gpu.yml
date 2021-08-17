@@ -6,9 +6,11 @@ usage:
     win: circleci/windows@2.4
   jobs:
     build:
-      executor: win/gpu-nvidia
-      steps:
-        - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
+      executor: 
+        name: win/gpu-nvidia
+        size: "small"
+    steps:
+      - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
   workflows:
     my-workflow:
       jobs:

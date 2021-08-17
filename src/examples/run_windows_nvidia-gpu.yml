@@ -8,7 +8,7 @@ usage:
     build:
       executor: win/gpu-nvidia
       steps:
-        - run: nvidia-smi
+        - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
   workflows:
     my-workflow:
       jobs:

@@ -13,7 +13,7 @@ parameters:
     default: "dev:alpha"
 jobs:
   integration-test:
-    executor: 
+    executor:
       name: windows/windows
       size: medium
       imagename: windows-server-2022-gui

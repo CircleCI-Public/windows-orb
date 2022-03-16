@@ -3,10 +3,14 @@ description: |
 usage:
   version: 2.1
   orbs:
-    win: circleci/windows@2.4
+    win: circleci/windows@3.0
   jobs:
     build:
-      executor: win/gpu-nvidia
+      executor:
+        name: win/windows-cuda
+        size: medium
+        imagename: windows-server-2019-nvidia
+        version: stable
       steps:
         - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
   workflows:

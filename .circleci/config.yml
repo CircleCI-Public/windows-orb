@@ -11,7 +11,15 @@ parameters:
   dev-orb-version:
     type: string
     default: "dev:alpha"
-
+jobs:
+  integration-test:
+    executor:
+      name: windows/windows
+      size: medium
+      imagename: windows-server-2022-gui
+      version: edge
+    steps:
+      - run: Write-Host 'Hello, Windows'
 workflows:
   test-pack:
     unless: << pipeline.parameters.run-integration-tests >>
@@ -32,6 +40,7 @@ workflows:
   deploy:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
+      - integration-test
       # Actually publish the orb
       - orb-tools/dev-promote-prod-from-commit-subject:
           name: dev-promote-semver

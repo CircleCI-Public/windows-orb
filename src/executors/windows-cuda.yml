@@ -15,12 +15,18 @@ parameters:
       - medium
       - large
     type: enum
+  imagename:
+    default: windows-server-2019-nvidia
+    description: 'The image name for windows.'
+    enum:
+      - windows-server-2019-nvidia
+    type: enum
   version:
     default: stable
     description: The image version to use when executing. Defaults to "stable".
     type: string
 
 machine:
-  image: windows-server-2019-nvidia:<< parameters.version >>
+  image: << parameters.imagename >>:<< parameters.version >>
   resource_class: windows.gpu.nvidia.<< parameters.size >>
   shell: << parameters.shell >>

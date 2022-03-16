@@ -2,7 +2,7 @@ description: This is an example of running a simple job on the 2019 Windows exec
 usage:
     version: 2.1
     orbs:
-      win: circleci/windows@2.5
+      win: circleci/windows@3.0
     jobs:
       build:
         executor:

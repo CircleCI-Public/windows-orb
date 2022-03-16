@@ -1,0 +1,17 @@
+description: This is an example of running a simple job on the 2019 Windows executor
+usage:
+    version: 2.1
+    orbs:
+      win: circleci/windows@2.4
+    jobs:
+      build:
+        executor:
+          name: win/2019
+          size: "medium"
+        steps:
+          - checkout
+          - run: Write-Host 'Hello, Windows'
+    workflows:
+      my-workflow:
+        jobs:
+          - build

@@ -8,8 +8,8 @@ usage:
         executor:
           name: win/windows
           size: medium
-          imagename: windows-server-2019-vs2019
-          version: stable
+          imagename: windows-server-2022-gui
+          version: edge
         steps:
           - checkout
           - run: Write-Host 'Hello, Windows'

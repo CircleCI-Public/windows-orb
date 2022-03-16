@@ -6,7 +6,11 @@ usage:
     win: circleci/windows@2.5
   jobs:
     build:
-      executor: win/2019-cuda
+      executor:
+        name: win/windows-cuda
+        size: medium
+        imagename: windows-server-2019-nvidia
+        version: stable
       steps:
         - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
   workflows:

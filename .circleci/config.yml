@@ -14,10 +14,9 @@ parameters:
 jobs:
   integration-test:
     executor:
-      name: windows/windows
+      name: windows/server-2019-cuda
       size: medium
-      imagename: windows-server-2022-gui
-      version: edge
+      version: stable
     steps:
       - run: Write-Host 'Hello, Windows'
 workflows:

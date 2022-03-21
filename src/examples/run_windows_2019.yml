@@ -1,15 +1,14 @@
-description: This is an example of running a simple job on the 2019 Windows executor
+description: This is an example of running a simple job on the default Windows executor
 usage:
     version: 2.1
     orbs:
-      win: circleci/windows@3.0
+      win: circleci/windows@4.0
     jobs:
       build:
         executor:
-          name: win/windows
-          size: medium
-          imagename: windows-server-2019-vs2019
-          version: stable
+          name: win/windows-server-2019
+          size: "medium"
+          variant: vs2019
         steps:
           - checkout
           - run: Write-Host 'Hello, Windows'
@@ -17,3 +16,4 @@ usage:
       my-workflow:
         jobs:
           - build
+

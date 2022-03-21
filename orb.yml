@@ -1,0 +1,173 @@
+version: 2.1
+description: Execute your CI pipelines on Windows in the cloud with Nvidia GPU support.
+display:
+    home_url: https://circleci.com/build-environments/windows
+    source_url: https://github.com/CircleCI-Public/windows-orb
+executors:
+    server-2019:
+        description: |
+            An executor preloaded with Visual Studio 2019 plus a number of other development tools.
+        machine:
+            image: windows-server-2019-<< parameters.variant >>:<< parameters.version >>
+            resource_class: windows.<< parameters.size >>
+            shell: << parameters.shell >>
+        parameters:
+            shell:
+                default: powershell.exe -ExecutionPolicy Bypass
+                description: The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
+                type: string
+            size:
+                default: medium
+                description: The size of Windows resource to use. Defaults to medium.
+                enum:
+                    - medium
+                    - large
+                    - xlarge
+                    - 2xlarge
+                type: enum
+            variant:
+                default: vs2019
+                description: The variant of windows 2019. Defaults to vs2019.
+                enum:
+                    - vs2019
+                type: enum
+            version:
+                default: stable
+                description: The image version to use when executing. Defaults to "stable".
+                type: string
+    server-2019-cuda:
+        description: |
+            An executor with an Nvidia GPU which includes a pre-installed CUDA runtime and the cuDNN library.
+        machine:
+            image: windows-server-2019-cuda:<< parameters.version >>
+            resource_class: windows.gpu.nvidia.<< parameters.size >>
+            shell: << parameters.shell >>
+        parameters:
+            shell:
+                default: powershell.exe -ExecutionPolicy Bypass
+                description: The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
+                type: string
+            size:
+                default: medium
+                description: The size of Windows GPU resource to use. Defaults to medium.
+                enum:
+                    - small
+                    - medium
+                    - large
+                type: enum
+            version:
+                default: stable
+                description: The image version to use when executing. Defaults to "stable".
+                type: string
+    server-2022:
+        description: |
+            An executor preloaded with Visual Studio 2019 plus a number of other development tools.
+        machine:
+            image: windows-server-2022-<< parameters.variant >>:<< parameters.version >>
+            resource_class: windows.<< parameters.size >>
+            shell: << parameters.shell >>
+        parameters:
+            shell:
+                default: powershell.exe -ExecutionPolicy Bypass
+                description: The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
+                type: string
+            size:
+                default: medium
+                description: The size of Windows resource to use. Defaults to medium.
+                enum:
+                    - medium
+                    - large
+                    - xlarge
+                    - 2xlarge
+                type: enum
+            variant:
+                default: gui
+                description: The variant of windows 2022. Defaults to gui.
+                enum:
+                    - gui
+                    - core
+                type: enum
+            version:
+                default: stable
+                description: The image version to use when executing. Defaults to "stable".
+                type: string
+    server-2022-cuda:
+        description: |
+            An executor with an Nvidia GPU which includes a pre-installed CUDA runtime and the cuDNN library.
+        machine:
+            image: windows-server-2022-cuda:<< parameters.version >>
+            resource_class: windows.gpu.nvidia.<< parameters.size >>
+            shell: << parameters.shell >>
+        parameters:
+            shell:
+                default: powershell.exe -ExecutionPolicy Bypass
+                description: The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`
+                type: string
+            size:
+                default: medium
+                description: The size of Windows GPU resource to use. Defaults to medium.
+                enum:
+                    - small
+                    - medium
+                    - large
+                type: enum
+            version:
+                default: stable
+                description: The image version to use when executing. Defaults to "stable".
+                type: string
+examples:
+    run_windows_2019:
+        description: This is an example of running a simple job on the default Windows executor
+        usage:
+            version: "2.1"
+            orbs:
+                win: circleci/windows@4.0
+            jobs:
+                build:
+                    executor:
+                        name: win/windows-server-2019
+                        size: medium
+                        variant: vs2019
+                    steps:
+                        - checkout
+                        - run: Write-Host 'Hello, Windows'
+            workflows:
+                my-workflow:
+                    jobs:
+                        - build
+    run_windows_2019_cuda:
+        description: |
+            This is an example of running a simple job on the Nvidia GPU executor
+        usage:
+            version: "2.1"
+            orbs:
+                win: circleci/windows@4.0
+            jobs:
+                build:
+                    executor: win/server-2019-cuda
+                    steps:
+                        - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
+            workflows:
+                my-workflow:
+                    jobs:
+                        - build
+    run_windows_2022:
+        description: This is an example of running a simple job on the default Windows executor
+        usage:
+            version: "2.1"
+            orbs:
+                win: circleci/windows@4.0
+            jobs:
+                build:
+                    executor:
+                        name: win/windows-server-2022
+                        size: medium
+                        variant: gui
+                    steps:
+                        - checkout
+                        - run: Write-Host 'Hello, Windows'
+            workflows:
+                my-workflow:
+                    jobs:
+                        - build
+

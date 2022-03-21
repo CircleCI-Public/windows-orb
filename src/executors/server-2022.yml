@@ -32,3 +32,4 @@ machine:
   image: windows-server-2022-<< parameters.variant >>:<< parameters.version >>
   resource_class: windows.<< parameters.size >>
   shell: << parameters.shell >>
+  

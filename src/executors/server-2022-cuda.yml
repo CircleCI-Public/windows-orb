@@ -24,3 +24,4 @@ machine:
   image: windows-server-2022-cuda:<< parameters.version >>
   resource_class: windows.gpu.nvidia.<< parameters.size >>
   shell: << parameters.shell >>
+  

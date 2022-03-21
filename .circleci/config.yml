@@ -12,12 +12,50 @@ parameters:
     type: string
     default: "dev:alpha"
 jobs:
-  integration-test:
+  test-server-2019:
+    parameters:
+      variant:
+        type: string
+      version:
+        type: string
     executor:
-      name: windows/windows
+      name: windows/server-2019
       size: medium
-      imagename: windows-server-2022-gui
-      version: edge
+      version: << parameters.version >>
+      variant: << parameters.variant >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
+  test-server-2019-cuda:
+    parameters:
+      version:
+        type: string
+    executor:
+      name: windows/server-2019-cuda
+      size: medium
+      version: << parameters.version >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
+  test-server-2022:
+    parameters:
+      variant:
+        type: string
+      version:
+        type: string
+    executor:
+      name: windows/server-2019-cuda
+      size: medium
+      version: << parameters.version >>
+      variant: << parameters.variant >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
+  test-server-2022-cuda:
+    parameters:
+      version:
+        type: string
+    executor:
+      name: windows/server-2022-cuda
+      size: medium
+      version: << parameters.version >>
     steps:
       - run: Write-Host 'Hello, Windows'
 workflows:
@@ -40,7 +78,28 @@ workflows:
   deploy:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      - integration-test
+      - test-server-2019:
+          name: test-server-2019-<< matrix.variant >>-<< matrix.version >>
+          matrix:
+            parameters:
+              variant: [vs2019]
+              version: [stable, edge]
+     # - test-server-2019-cuda:
+     #     name: test-server-2019-cuda-<< matrix.version >>
+     #     matrix:
+     #       parameters:
+     #         version: [stable, edge]
+      - test-server-2022:
+          name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
+          matrix:
+            parameters:
+              variant: [gui] # add core when available
+              version: [edge] # add stable when available
+      #- test-server-2022-cuda:
+      #    name: test-server-2022-cuda-<< matrix.version >>
+      #    matrix:
+      #      parameters:
+      #        version: [stable, edge]
       # Actually publish the orb
       - orb-tools/dev-promote-prod-from-commit-subject:
           name: dev-promote-semver

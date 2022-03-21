@@ -24,4 +24,3 @@ machine:
   image: windows-server-2019-cuda:<< parameters.version >>
   resource_class: windows.gpu.nvidia.<< parameters.size >>
   shell: << parameters.shell >>
-  

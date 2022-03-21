@@ -31,3 +31,4 @@ machine:
   image: windows-server-2019-<< parameters.variant >>:<< parameters.version >>
   resource_class: windows.<< parameters.size >>
   shell: << parameters.shell >>
+  

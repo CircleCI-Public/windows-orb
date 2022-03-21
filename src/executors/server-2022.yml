@@ -16,12 +16,12 @@ parameters:
       - xlarge
       - 2xlarge
     type: enum
-  imagename:
-    default: windows-server-2019-vs2019
-    description: 'The image name for windows.'
+  variant:
+    default: gui
+    description: 'The variant of windows 2022. Defaults to gui.'
     enum:
-      - windows-server-2019-vs2019
-      - windows-server-2022-gui
+      - gui
+      - core
     type: enum
   version:
     default: stable
@@ -29,6 +29,6 @@ parameters:
     type: string
 
 machine:
-  image: << parameters.imagename >>:<< parameters.version >>
+  image: windows-server-2022-<< parameters.variant >>:<< parameters.version >>
   resource_class: windows.<< parameters.size >>
   shell: << parameters.shell >>

@@ -14,9 +14,8 @@ parameters:
 jobs:
   integration-test:
     executor:
-      name: windows/server-2019
+      name: windows/server-2019-cuda
       size: medium
-      variant: vs2019
       version: stable
     steps:
       - run: Write-Host 'Hello, Windows'

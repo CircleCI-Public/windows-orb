@@ -3,3 +3,4 @@ description: Execute your CI pipelines on Windows in the cloud with Nvidia GPU s
 display:
   source_url: https://github.com/CircleCI-Public/windows-orb
   home_url: https://circleci.com/build-environments/windows
+  

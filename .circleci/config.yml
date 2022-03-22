@@ -84,22 +84,22 @@ workflows:
             parameters:
               variant: [vs2019]
               version: [stable, edge]
-      - test-server-2019-cuda:
-          name: test-server-2019-cuda-<< matrix.version >>
-          matrix:
-            parameters:
-              version: [stable, edge]
+     # - test-server-2019-cuda: 
+     #     name: test-server-2019-cuda-<< matrix.version >>
+     #     matrix:
+     #       parameters:
+     #         version: [stable, edge]
       - test-server-2022:
           name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
           matrix:
             parameters:
-              variant: [gui, core]
-              version: [stable, edge]
-      - test-server-2022-cuda:
-          name: test-server-2022-cuda-<< matrix.version >>
-          matrix:
-            parameters:
-              version: [stable, edge]
+              variant: [gui] # add core when available
+              version: [edge] # add stable when available
+      #- test-server-2022-cuda:
+      #    name: test-server-2022-cuda-<< matrix.version >>
+      #    matrix:
+      #      parameters:
+      #        version: [stable, edge]
       # Actually publish the orb
       - orb-tools/dev-promote-prod-from-commit-subject:
           name: dev-promote-semver

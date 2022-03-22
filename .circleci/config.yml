@@ -42,7 +42,7 @@ jobs:
       version:
         type: string
     executor:
-      name: windows/server-2019-cuda
+      name: windows/server-2022
       size: medium
       version: << parameters.version >>
       variant: << parameters.variant >>

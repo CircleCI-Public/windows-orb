@@ -89,7 +89,7 @@ workflows:
           matrix:
             parameters:
               version: [stable, edge]
-      - test-server-2019:
+      - test-server-2022:
           name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
           matrix:
             parameters:

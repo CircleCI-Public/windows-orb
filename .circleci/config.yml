@@ -99,7 +99,7 @@ workflows:
           name: test-server-2022-cuda-<< matrix.version >>
           matrix:
             parameters:
-              version: [stable, edge]      
+              version: [stable, edge]
       # Actually publish the orb
       - orb-tools/dev-promote-prod-from-commit-subject:
           name: dev-promote-semver

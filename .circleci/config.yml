@@ -74,11 +74,11 @@ workflows:
             parameters:
               variant: [vs2019]
               version: [stable, edge]
-     # - test-server-2019-cuda:
-     #     name: test-server-2019-cuda-<< matrix.version >>
-     #     matrix:
-     #       parameters:
-     #         version: [stable, edge]
+      - test-server-2019-cuda:
+          name: test-server-2019-cuda-<< matrix.version >>
+          matrix:
+            parameters:
+              version: [stable, edge]
       - test-server-2022:
           name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
           matrix:

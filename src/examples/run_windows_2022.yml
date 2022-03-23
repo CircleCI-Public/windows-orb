@@ -6,11 +6,11 @@ usage:
     jobs:
         build:
             executor:
-              name: win/windows-server-2022
+                name: win/windows-server-2022
         steps:
             - checkout
             - run: Write-Host 'Hello, Windows'
     workflows:
         my-workflow:
             jobs:
-              - build
+                - build

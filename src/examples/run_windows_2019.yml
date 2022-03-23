@@ -8,8 +8,8 @@ usage:
             executor:
                 name: win/windows-server-2019
         steps:
-            - checkout
-            - run: Write-Host 'Hello, Windows'
+          - checkout
+          - run: Write-Host 'Hello, Windows'
     workflows:
         my-workflow:
             jobs:

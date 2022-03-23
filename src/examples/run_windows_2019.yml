@@ -2,16 +2,15 @@ description: This is an example of running a simple job on the default Windows e
 usage:
     version: 2.1
     orbs:
-      win: circleci/windows@4.0
+        win: circleci/windows@4.0
     jobs:
-      build:
-        executor:
-          name: win/windows-server-2019
+        build:
+          executor:
+            name: win/windows-server-2019
         steps:
-          - checkout
-          - run: Write-Host 'Hello, Windows'
+            - checkout
+            - run: Write-Host 'Hello, Windows'
     workflows:
-      my-workflow:
-        jobs:
-          - build
-
+        my-workflow:
+          jobs:
+            - build

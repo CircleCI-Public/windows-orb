@@ -6,12 +6,12 @@ usage:
     jobs:
         build:
             executor:
-              name: win/default
+                name: win/default
             steps:
-              - checkout
-              - run: Write-Host 'Hello, Windows'
+                - checkout
+                - run: Write-Host 'Hello, Windows'
     workflows:
         my-workflow:
-          jobs:
-            - build
+            jobs:
+              - build
 

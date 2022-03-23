@@ -7,8 +7,6 @@ usage:
       build:
         executor:
           name: win/windows-server-2022
-          size: "medium"
-          variant: gui
         steps:
           - checkout
           - run: Write-Host 'Hello, Windows'

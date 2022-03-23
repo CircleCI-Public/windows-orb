@@ -48,16 +48,6 @@ jobs:
       variant: << parameters.variant >>
     steps:
       - run: Write-Host 'Hello, Windows'
-  test-server-2022-cuda:
-    parameters:
-      version:
-        type: string
-    executor:
-      name: windows/server-2022-cuda
-      size: medium
-      version: << parameters.version >>
-    steps:
-      - run: Write-Host 'Hello, Windows'
 workflows:
   test-pack:
     unless: << pipeline.parameters.run-integration-tests >>
@@ -95,12 +85,6 @@ workflows:
             parameters:
               variant: [gui] # add core when available
               version: [edge] # add stable when available
-      #- test-server-2022-cuda:
-      #    name: test-server-2022-cuda-<< matrix.version >>
-      #    matrix:
-      #      parameters:
-      #        version: [stable, edge]
-      # Actually publish the orb
       - orb-tools/dev-promote-prod-from-commit-subject:
           name: dev-promote-semver
           add-pr-comment: true

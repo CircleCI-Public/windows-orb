@@ -7,8 +7,6 @@ usage:
       build:
         executor:
           name: win/windows-server-2019
-          size: "medium"
-          variant: vs2019
         steps:
           - checkout
           - run: Write-Host 'Hello, Windows'

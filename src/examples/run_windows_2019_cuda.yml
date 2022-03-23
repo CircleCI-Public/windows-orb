@@ -1,5 +1,5 @@
 description: |
-  This is an example of running a simple job on the Nvidia GPU executor
+  This is an example of running a simple job on the Windows Server 2019 cuda (GPU) executor
 usage:
   version: 2.1
   orbs:
@@ -8,7 +8,7 @@ usage:
     build:
       executor: win/server-2019-cuda
       steps:
-        - run: '&"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"'
+        - run: Write-Host 'Hello, Windows'
   workflows:
     my-workflow:
       jobs:

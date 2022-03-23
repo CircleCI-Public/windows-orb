@@ -5,12 +5,12 @@ usage:
         win: circleci/windows@4.0
     jobs:
         build:
-          executor:
-            name: win/windows-server-2019
+            executor:
+              name: win/windows-server-2019
         steps:
             - checkout
             - run: Write-Host 'Hello, Windows'
     workflows:
         my-workflow:
-          jobs:
-            - build
+            jobs:
+              - build

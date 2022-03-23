@@ -5,13 +5,13 @@ usage:
         win: circleci/windows@4.0
     jobs:
         build:
-          executor:
-            name: win/default
-          steps:
-            - checkout
-            - run: Write-Host 'Hello, Windows'
+            executor:
+              name: win/default
+            steps:
+              - checkout
+              - run: Write-Host 'Hello, Windows'
     workflows:
-      my-workflow:
-        jobs:
-          - build
+        my-workflow:
+          jobs:
+            - build
 

@@ -28,6 +28,6 @@ parameters:
     type: string
 
 machine:
-  image: windows-server-2022-vs2022-<< parameters.variant >>:<< parameters.version >>
+  image: windows-server-2022-vs2022:<< parameters.version >>
   resource_class: windows.<< parameters.size >>
   shell: << parameters.shell >>

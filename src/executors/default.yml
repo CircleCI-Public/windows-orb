@@ -24,7 +24,7 @@ parameters:
     type: enum
   version:
     default: current
-    description: The image version to use when executing. Defaults to "stable".
+    description: The image version to use when executing. Defaults to "current".
     type: string
 
 machine:

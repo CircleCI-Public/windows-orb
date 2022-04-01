@@ -23,7 +23,7 @@ parameters:
       - gui
     type: enum
   version:
-    default: edge
+    default: current
     description: The image version to use when executing. Defaults to "edge".
     type: string
 

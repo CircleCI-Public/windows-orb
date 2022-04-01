@@ -23,7 +23,7 @@ parameters:
       - vs2019
     type: enum
   version:
-    default: stable
+    default: current
     description: The image version to use when executing. Defaults to "stable".
     type: string
 

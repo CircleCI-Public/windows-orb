@@ -18,13 +18,13 @@ parameters:
     type: enum
   variant:
     default: vs2019
-    description: 'The variant of windows 2019. Defaults to vs2019.'
+    description: 'The variant of Windows Server 2019. Defaults to vs2019.'
     enum:
       - vs2019
     type: enum
   version:
     default: current
-    description: The image version to use when executing. Defaults to "stable".
+    description: The image version to use when executing. Defaults to "current".
     type: string
 
 machine:

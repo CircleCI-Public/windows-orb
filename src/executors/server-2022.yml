@@ -1,5 +1,5 @@
 description: >
-  An executor preloaded with Visual Studio 2019 plus a number of other
+  An executor preloaded with Visual Studio 2022 plus a number of other
   development tools.
 
 parameters:
@@ -24,7 +24,7 @@ parameters:
     type: enum
   version:
     default: current
-    description: The image version to use when executing. Defaults to "edge".
+    description: The image version to use when executing. Defaults to "current".
     type: string
 
 machine:

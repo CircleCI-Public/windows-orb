@@ -73,6 +73,9 @@ workflows:
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
+            - test-server-2019
+            - test-server-2019-cuda
+            - test-server-2022
             - orb-tools/pack
           context: orb-publisher
           filters:

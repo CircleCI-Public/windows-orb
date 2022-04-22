@@ -1,10 +1,16 @@
 version: 2.1
+
 orbs:
-  windows: circleci/windows@dev:<<pipeline.git.revision>>
-  orb-tools: circleci/orb-tools@11.1
-filters: &filters
-  tags:
-    only: /.*/
+  orb-tools: circleci/orb-tools@10
+  windows: circleci/windows@<<pipeline.parameters.dev-orb-version>>
+
+parameters:
+  run-integration-tests:
+    type: boolean
+    default: false
+  dev-orb-version:
+    type: string
+    default: "dev:alpha"
 jobs:
   test-server-2019:
     parameters:
@@ -43,44 +49,52 @@ jobs:
     steps:
       - run: Write-Host 'Hello, Windows'
 workflows:
-  test-deploy:
+  test-pack:
+    unless: << pipeline.parameters.run-integration-tests >>
     jobs:
-      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      # lint the destructured orb YAML files
+      - orb-tools/lint
+      - orb-tools/pack
+      - orb-tools/publish-dev:
+          context: orb-publisher
+          orb-name: circleci/windows
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
+      - orb-tools/trigger-integration-tests-workflow:
+          name: trigger-integration
+          context: orb-publisher
+          requires: [orb-tools/publish-dev]
+  deploy:
+    when: << pipeline.parameters.run-integration-tests >>
+    jobs:
       - test-server-2019:
           name: test-server-2019-<< matrix.variant >>-<< matrix.version >>
           matrix:
             parameters:
               variant: [vs2019]
               version: [stable, edge]
-          filters: *filters              
       - test-server-2019-cuda:
           name: test-server-2019-cuda-<< matrix.version >>
           matrix:
             parameters:
               version: [edge]
-          filters: *filters              
       - test-server-2022:
           name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
           matrix:
             parameters:
               variant: [gui] # add core when available
-              version: [edge] # add stable when available 
-          filters: *filters              
-      - orb-tools/pack:
-          filters: *filters
-      - orb-tools/publish:
-          orb-name: circleci/windows
-          vcs-type: << pipeline.project.type >>
-          pub-type: production
-          github-token: GHI_TOKEN
-          requires:
-            - test-server-2019
-            - test-server-2019-cuda
-            - test-server-2022
-            - orb-tools/pack
+              version: [edge] # add stable when available
+      - orb-tools/dev-promote-prod-from-commit-subject:
+          name: dev-promote-semver
+          add-pr-comment: true
+          fail-if-semver-not-indicated: true
+          bot-user: orb-publisher
+          bot-token-variable: GHI_TOKEN
           context: orb-publisher
+          orb-name: circleci/windows
+          publish-version-tag: true
+          ssh-fingerprints: 34:29:ab:b0:92:8b:b7:cd:c8:33:07:12:7b:d1:4e:4b
           filters:
             branches:
-              ignore: /.*/
-            tags:
-              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+              only: master

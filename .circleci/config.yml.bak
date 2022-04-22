@@ -1,0 +1,100 @@
+version: 2.1
+
+orbs:
+  orb-tools: circleci/orb-tools@10
+  windows: circleci/windows@<<pipeline.parameters.dev-orb-version>>
+
+parameters:
+  run-integration-tests:
+    type: boolean
+    default: false
+  dev-orb-version:
+    type: string
+    default: "dev:alpha"
+jobs:
+  test-server-2019:
+    parameters:
+      variant:
+        type: string
+      version:
+        type: string
+    executor:
+      name: windows/server-2019
+      size: medium
+      version: << parameters.version >>
+      variant: << parameters.variant >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
+  test-server-2019-cuda:
+    parameters:
+      version:
+        type: string
+    executor:
+      name: windows/server-2019-cuda
+      size: medium
+      version: << parameters.version >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
+  test-server-2022:
+    parameters:
+      variant:
+        type: string
+      version:
+        type: string
+    executor:
+      name: windows/server-2022
+      size: medium
+      version: << parameters.version >>
+      variant: << parameters.variant >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
+workflows:
+  test-pack:
+    unless: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      # lint the destructured orb YAML files
+      - orb-tools/lint
+      - orb-tools/pack
+      - orb-tools/publish-dev:
+          context: orb-publisher
+          orb-name: circleci/windows
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
+      - orb-tools/trigger-integration-tests-workflow:
+          name: trigger-integration
+          context: orb-publisher
+          requires: [orb-tools/publish-dev]
+  deploy:
+    when: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      - test-server-2019:
+          name: test-server-2019-<< matrix.variant >>-<< matrix.version >>
+          matrix:
+            parameters:
+              variant: [vs2019]
+              version: [stable, edge]
+      - test-server-2019-cuda:
+          name: test-server-2019-cuda-<< matrix.version >>
+          matrix:
+            parameters:
+              version: [edge]
+      - test-server-2022:
+          name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
+          matrix:
+            parameters:
+              variant: [gui] # add core when available
+              version: [edge] # add stable when available
+      - orb-tools/dev-promote-prod-from-commit-subject:
+          name: dev-promote-semver
+          add-pr-comment: true
+          fail-if-semver-not-indicated: true
+          bot-user: orb-publisher
+          bot-token-variable: GHI_TOKEN
+          context: orb-publisher
+          orb-name: circleci/windows
+          publish-version-tag: true
+          ssh-fingerprints: 34:29:ab:b0:92:8b:b7:cd:c8:33:07:12:7b:d1:4e:4b
+          filters:
+            branches:
+              only: master

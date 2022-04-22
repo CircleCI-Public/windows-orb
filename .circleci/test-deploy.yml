@@ -51,20 +51,20 @@ workflows:
           matrix:
             parameters:
               variant: [vs2019]
-              version: [stable, edge]
+              version: [edge, current]
           filters: *filters              
       - test-server-2019-cuda:
           name: test-server-2019-cuda-<< matrix.version >>
           matrix:
             parameters:
-              version: [edge]
+              version: [edge, current]
           filters: *filters              
       - test-server-2022:
           name: test-server-2022-<< matrix.variant >>-<< matrix.version >>
           matrix:
             parameters:
               variant: [gui] # add core when available
-              version: [edge] # add stable when available 
+              version: [edge, current] # add stable when available 
           filters: *filters              
       - orb-tools/pack:
           filters: *filters

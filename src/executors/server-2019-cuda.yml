@@ -11,9 +11,7 @@ parameters:
     default: medium
     description: 'The size of Windows GPU resource to use. Defaults to medium.'
     enum:
-      - small
       - medium
-      - large
     type: enum
   version:
     default: current

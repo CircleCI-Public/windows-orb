@@ -1,11 +1,14 @@
-# Orb Project Template
-[![CircleCI Build Status](https://circleci.com/gh/CircleCI-Public/windows-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/CircleCI-Public/windows-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/circleci/windows.svg)](https://circleci.com/orbs/registry/orb/circleci/windows) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/CircleCI-Public/windows-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+# Windows Orb
 
-A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
+[![CircleCI Build Status](https://circleci.com/gh/CircleCI-Public/windows-orb.svg?style=shield 'CircleCI Build Status')](https://circleci.com/gh/CircleCI-Public/windows-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/circleci/windows.svg)](https://circleci.com/orbs/registry/orb/circleci/windows) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/CircleCI-Public/windows-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
-Additional READMEs are available in each directory.
+Use Windows Server Environments within CircleCI with this Windows Orb.
 
-**Meta**: This repository is open for contributions! Feel free to open a pull request with your changes. Due to the nature of this repository, it is not built on CircleCI. The Resources and How to Contribute sections relate to an orb created with this template, rather than the template itself.
+[What are Orbs?](https://circleci.com/orbs/)
+
+## Usage
+
+For full usage guidelines, see the [Orb Registry listing](http://circleci.com/orbs/registry/orb/circleci/windows)
 
 ## Resources
 
@@ -16,23 +19,12 @@ Additional READMEs are available in each directory.
 
 We welcome [issues](https://github.com/CircleCI-Public/windows-orb/issues) to and [pull requests](https://github.com/CircleCI-Public/windows-orb/pulls) against this repository!
 
-### How to Publish
-* Create and push a branch with your new features.
-* When ready to publish a new production version, create a Pull Request from _feature branch_ to `master`.
-* The title of the pull request must contain a special semver tag: `[semver:<segment>]` where `<segment>` is replaced by one of the following values.
+## FAQ
 
-| Increment | Description|
-| ----------| -----------|
-| major     | Issue a 1.0.0 incremented release|
-| minor     | Issue a x.1.0 incremented release|
-| patch     | Issue a x.x.1 incremented release|
-| skip      | Do not issue a release|
+View the [FAQ in the wiki](https://github.com/CircleCI-Public/windows-orb/wiki/FAQ)
 
-Example: `[semver:major]`
+## Contributing
 
-* Squash and merge. Ensure the semver tag is preserved and entered as a part of the commit message.
-* On merge, after manual approval, the orb will automatically be published to the Orb Registry.
+We welcome [issues](https://github.com/CircleCI-Public/windows-orb/issues) to and [pull requests](https://github.com/CircleCI-Public/windows-orb/pulls) against this repository!
 
-
-For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
-
+For further questions/comments about this or other orbs, visit [CircleCI's orbs discussion forum](https://discuss.circleci.com/c/orbs).

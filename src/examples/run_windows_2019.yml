@@ -3,7 +3,7 @@ description: |
 usage:
   version: 2.1
   orbs:
-    win: circleci/windows@4.2
+    win: circleci/windows@5.0
   jobs:
     build:
       executor: win/server-2019

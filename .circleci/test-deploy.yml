@@ -42,6 +42,16 @@ jobs:
       variant: << parameters.variant >>
     steps:
       - run: Write-Host 'Hello, Windows'
+  test-server-2022-cuda:
+    parameters:
+      version:
+        type: string
+    executor:
+      name: windows/server-2022-cuda
+      size: medium
+      version: << parameters.version >>
+    steps:
+      - run: Write-Host 'Hello, Windows'
 workflows:
   test-deploy:
     jobs:
@@ -65,7 +75,13 @@ workflows:
             parameters:
               variant: [gui] # add core when available
               version: [edge, current] # add stable when available 
-          filters: *filters              
+          filters: *filters
+      - test-server-2022-cuda:
+          name: test-server-2022-cuda-<< matrix.version >>
+          matrix:
+            parameters:
+              version: [edge, current]
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -77,6 +93,7 @@ workflows:
             - test-server-2019
             - test-server-2019-cuda
             - test-server-2022
+            - test-server-2022-cuda
             - orb-tools/pack
           context: orb-publisher
           filters:

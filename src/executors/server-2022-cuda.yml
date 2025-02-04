@@ -1,0 +1,23 @@
+description: >
+  An executor with an Nvidia GPU which includes a pre-installed CUDA runtime.
+
+parameters:
+  shell:
+    default: powershell.exe -ExecutionPolicy Bypass
+    description: 'The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`'
+    type: string
+  size:
+    default: medium
+    description: 'The size of Windows GPU resource to use. Defaults to medium.'
+    enum:
+      - medium
+    type: enum
+  version:
+    default: current
+    description: The image version to use when executing. Defaults to "current".
+    type: string
+
+machine:
+  image: windows-server-2022-cuda:<< parameters.version >>
+  resource_class: windows.gpu.nvidia.<< parameters.size >>
+  shell: << parameters.shell >>

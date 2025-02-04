@@ -1,0 +1,15 @@
+description: |
+  This is an example of running a simple job on the Windows Server 2022 cuda (GPU) executor
+usage:
+  version: 2.1
+  orbs:
+    win: circleci/windows@5.0
+  jobs:
+    build:
+      executor: win/server-2022-cuda
+      steps:
+        - run: Write-Host 'Hello, Windows'
+  workflows:
+    my-workflow:
+      jobs:
+        - build

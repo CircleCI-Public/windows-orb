@@ -1,0 +1,33 @@
+description: >
+  An executor preloaded with Visual Studio 2022 plus a number of other
+  development tools.
+
+parameters:
+  shell:
+    default: powershell.exe -ExecutionPolicy Bypass
+    description: 'The shell to use. Defaults to `powershell.exe -ExecutionPolicy Bypass`'
+    type: string
+  size:
+    default: medium
+    description: 'The size of Windows resource to use. Defaults to medium.'
+    enum:
+      - medium
+      - large
+      - xlarge
+      - 2xlarge
+    type: enum
+  variant:
+    default: gui
+    description: 'The variant of Windows Server 2025. Defaults to gui.'
+    enum:
+      - gui
+    type: enum
+  version:
+    default: current
+    description: The image version to use when executing. Defaults to "current".
+    type: string
+
+machine:
+  image: windows-server-2025-<< parameters.variant >>:<< parameters.version >>
+  resource_class: windows.<< parameters.size >>
+  shell: << parameters.shell >>

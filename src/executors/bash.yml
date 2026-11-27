@@ -1,0 +1,35 @@
+description: >
+  The same Windows Server 2022 environment as the default executor, with Bash
+  (Git Bash) as the default shell instead of PowerShell. Use this when your
+  steps are written for Bash, so you do not have to set the shell on every job
+  or redefine the machine image in your own config.
+
+parameters:
+  shell:
+    default: bash.exe
+    description: 'The shell to use. Defaults to `bash.exe`'
+    type: string
+  size:
+    default: medium
+    description: 'The size of Windows resource to use. Defaults to medium.'
+    enum:
+      - medium
+      - large
+      - xlarge
+      - 2xlarge
+    type: enum
+  variant:
+    default: gui
+    description: 'The variant of Windows Server 2022. Defaults to gui.'
+    enum:
+      - gui
+    type: enum
+  version:
+    default: current
+    description: The image version to use when executing. Defaults to "current".
+    type: string
+
+machine:
+  image: windows-server-2022-<< parameters.variant >>:<< parameters.version >>
+  resource_class: windows.<< parameters.size >>
+  shell: << parameters.shell >>

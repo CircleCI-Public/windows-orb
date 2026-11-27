@@ -1,11 +1,11 @@
 description: >
   Run a job on Windows with Bash as the default shell. The bash executor uses
-  the same image and size options as the default executor, so steps do not
-  need their own shell setting.
+  the same image and size options as the default executor, so steps (and orbs
+  written for a POSIX shell) do not need their own shell setting.
 usage:
   version: 2.1
   orbs:
-    win: circleci/windows@5.0
+    win: circleci/windows@5.2
   jobs:
     build:
       executor:

@@ -58,13 +58,21 @@ jobs:
       size: medium
     steps:
       - run:
-          name: Default shell is Bash
+          name: Default shell is Bash with -e and GNU tools first
           command: |
             if [ -z "$BASH_VERSION" ]; then
               echo "Expected Bash as the default shell"
               exit 1
             fi
-            echo "Running in Bash $BASH_VERSION"
+            case "$-" in
+              *e*) ;;
+              *) echo "Expected the shell to start with -e"; exit 1 ;;
+            esac
+            if [ "$(command -v find)" != "/usr/bin/find" ]; then
+              echo "Expected GNU find first on PATH, got $(command -v find)"
+              exit 1
+            fi
+            echo "Running in Bash $BASH_VERSION with options $-"
 workflows:
   test-deploy:
     jobs:

@@ -1,13 +1,17 @@
 description: >
   The same Windows Server 2022 environment as the default executor, with Bash
   (Git Bash) as the default shell instead of PowerShell. Use this when your
-  steps are written for Bash, so you do not have to set the shell on every job
-  or redefine the machine image in your own config.
+  steps, or the orbs you use, are written for a POSIX shell, so you do not have
+  to set the shell on every job or redefine the machine image in your own
+  config. The default shell is a login shell with -eo pipefail, the same as the
+  macOS default: Git Bash's GNU tools (for example find and sort) come before
+  the Windows tools of the same name on PATH, and a failing command fails the
+  step, as it does on Linux.
 
 parameters:
   shell:
-    default: bash.exe
-    description: 'The shell to use. Defaults to `bash.exe`'
+    default: bash.exe --login -eo pipefail
+    description: 'The shell to use. Defaults to `bash.exe --login -eo pipefail`'
     type: string
   size:
     default: medium
